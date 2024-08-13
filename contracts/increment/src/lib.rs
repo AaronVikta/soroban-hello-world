@@ -29,7 +29,7 @@ impl IncrementContract {
         count
     }
 
-    // decrement the counter
+    // get value of count
     pub fn get_value(env: Env) -> u32 {
         // get the current count
         let count = env.storage().instance().get(&COUNTER).unwrap_or(0);
@@ -38,6 +38,33 @@ impl IncrementContract {
         // return the count to the caller
         count
     }
+
+    // decrement function
+    pub fn decrement(env: Env) -> u32 {
+        // get the current count
+        let mut count = env.storage().instance().get(&COUNTER).unwrap_or(0);
+        log!(&env, "count: {}", count);
+
+        // decrement the count
+        count -= 1;
+
+        // save the count
+        env.storage().instance().set(&COUNTER, &count);
+
+        // return the count to the caller
+        count
+    }
+
+
+    // reset function
+    pub fn reset(env: Env)  {
+        
+        let count = env.storage().instance().set(&COUNTER, &0);
+        log!(&env, "Count reset to 0");
+
+        count
+    }
+
 }
 
 mod test;

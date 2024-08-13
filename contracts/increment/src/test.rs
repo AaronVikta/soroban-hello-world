@@ -14,7 +14,9 @@ fn test() {
     assert_eq!(client.increment(), 1);
     assert_eq!(client.increment(), 2);
     assert_eq!(client.increment(), 3);
-    assert_ne!(client.get_value(),0);
+    assert_eq!(client.get_value(),3);
+    assert_eq!(client.decrement(),2);
+    assert_eq!(client.reset(),());
 
     std::println!("{}", env.logs().all().join("\n"));
 }
